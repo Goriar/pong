@@ -58,7 +58,6 @@ public class Gameplay extends BasicGameState{
 		this.stateID = stateID;
 	}
 	
-	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		player1 = new Player(20,300,PLAYER_WIDTH,PLAYER_HEIGHT,-1);
@@ -99,7 +98,7 @@ public class Gameplay extends BasicGameState{
 		pball= new Image("Data/ball1.png");
 		
 	}
-	@Override
+
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
@@ -199,7 +198,6 @@ public class Gameplay extends BasicGameState{
 		}
 		
 	}
-	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		

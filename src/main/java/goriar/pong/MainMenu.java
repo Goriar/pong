@@ -45,7 +45,6 @@ public class MainMenu extends BasicGameState {
 		state = MState.Start;
 	}
 
-	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		if (state == MState.Start) {
 			// zeichnet den Hintergrund und die Auswahlm�glichkeiten
@@ -57,7 +56,7 @@ public class MainMenu extends BasicGameState {
 			instruc.draw(0, 0);
 	}
 
-	@Override
+
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		Input input = gc.getInput();
 
