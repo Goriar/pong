@@ -12,8 +12,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class CharacterSelect extends BasicGameState {
 
-	private final static String CHARACTER_SELECT_PIC = "Data/charselect.png";
-	private final static String MAIN_MENU_BG_PIC = "Data/main_menu_bg.jpg";
+	private static final String CHARACTER_SELECT_PIC = "Data/charselect.png";
+	private static final String MAIN_MENU_BG_PIC = "Data/main_menu_bg.jpg";
 	int stateID=1;
 	CharacterSelect(int stateID) {
 		 this.stateID=stateID;
@@ -21,8 +21,8 @@ public class CharacterSelect extends BasicGameState {
 	
 	// 0 : Char mit dem Move jump
 	// 1 : Char mit dem Move shrink
-	public static int PLAYER1=-1;
-	public static int PLAYER2=-1;
+	public static int player1=-1;
+	public static int player2=-1;
 	
 	Image char1;
 	Image char2;
@@ -98,14 +98,14 @@ public class CharacterSelect extends BasicGameState {
 		Input input = gc.getInput();
 		
 		// Legt die Steuerung des Cursors fest
-		if(input.isKeyDown(Input.KEY_D)&&CharacterSelect.PLAYER1<0)
+		if(input.isKeyDown(Input.KEY_D)&&CharacterSelect.player1<0)
 			p1 = Math.min(p1+1, 1);
-		if(input.isKeyDown(Input.KEY_A)&&CharacterSelect.PLAYER1<0)
+		if(input.isKeyDown(Input.KEY_A)&&CharacterSelect.player1<0)
 			p1 = Math.max(p1-1, 0);
 			
-		if(input.isKeyDown(Input.KEY_RIGHT)&&CharacterSelect.PLAYER2<0)
+		if(input.isKeyDown(Input.KEY_RIGHT)&&CharacterSelect.player2<0)
 			p2 = Math.min(p2+1, 1);
-		if(input.isKeyDown(Input.KEY_LEFT)&&CharacterSelect.PLAYER2<0)
+		if(input.isKeyDown(Input.KEY_LEFT)&&CharacterSelect.player2<0)
 			p2 = Math.max(p2-1, 0);
 		
 		
@@ -118,7 +118,7 @@ public class CharacterSelect extends BasicGameState {
 				CharacterSelect.setPlayer2(p2);
 		}
 		
-		if(CharacterSelect.PLAYER1!=-1&&CharacterSelect.PLAYER2!=-1){
+		if(CharacterSelect.player1!=-1&&CharacterSelect.player2!=-1){
 			//sobald beide Spieler ausgew�hlt wurden beginnt das Spiel
 			sbg.enterState(PongPlay.GAMEPLAY);
 		}
@@ -135,11 +135,11 @@ public class CharacterSelect extends BasicGameState {
 	}
 
 	public static void setPlayer1(int character) {
-		CharacterSelect.PLAYER1 = character;
+		CharacterSelect.player1 = character;
 	}
 	
 	public static void setPlayer2(int character) {
-		CharacterSelect.PLAYER2 = character;
+		CharacterSelect.player2 = character;
 	}
 
 }
