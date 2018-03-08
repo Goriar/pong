@@ -12,7 +12,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class CharacterSelect extends BasicGameState {
 
-	
+	private final static String CHARACTER_SELECT_PIC = "Data/charselect.png";
+	private final static String MAIN_MENU_BG_PIC = "Data/main_menu_bg.jpg";
 	int stateID=1;
 	CharacterSelect(int stateID) {
 		 this.stateID=stateID;
@@ -20,8 +21,8 @@ public class CharacterSelect extends BasicGameState {
 	
 	// 0 : Char mit dem Move jump
 	// 1 : Char mit dem Move shrink
-	public static int player1=-1;
-	public static int player2=-1;
+	public static int PLAYER1=-1;
+	public static int PLAYER2=-1;
 	
 	Image char1;
 	Image char2;
@@ -35,11 +36,11 @@ public class CharacterSelect extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		
-		char1 = new Image("Data/charselect.png");
-		char2 = new Image("Data/charselect.png");
-		pick1 = new Image("Data/charselect.png");
-		pick2 = new Image("Data/charselect.png");
-		bg = new Image("Data/main_menu_bg.jpg");
+		char1 = new Image(CHARACTER_SELECT_PIC);
+		char2 = new Image(CHARACTER_SELECT_PIC);
+		pick1 = new Image(CHARACTER_SELECT_PIC);
+		pick2 = new Image(CHARACTER_SELECT_PIC);
+		bg = new Image(MAIN_MENU_BG_PIC);
 		
 		// Cursor
 		p1=0;
@@ -84,10 +85,10 @@ public class CharacterSelect extends BasicGameState {
 		
 		// Zeichnet die Spielnachrichten ein
 		g.setColor(Color.yellow);
-		g.drawString("Mit A und D ausw�hlen mit W best�tigen", PongPlay.WIDTH/2-200, PongPlay.HEIGHT/2+200);
+		g.drawString("Mit A und D ausw�hlen mit W bestaetigen", PongPlay.WIDTH/2-200, PongPlay.HEIGHT/2+200);
 		
 		g.setColor(Color.green);
-		g.drawString("Mit LINKS und RECHTS ausw�hlen mit HOCH best�tigen", PongPlay.WIDTH/2-200, PongPlay.HEIGHT/2+240);
+		g.drawString("Mit LINKS und RECHTS ausw�hlen mit HOCH bestaetigen", PongPlay.WIDTH/2-200, PongPlay.HEIGHT/2+240);
 	}
 
 	
@@ -97,39 +98,34 @@ public class CharacterSelect extends BasicGameState {
 		Input input = gc.getInput();
 		
 		// Legt die Steuerung des Cursors fest
-		if(input.isKeyDown(Input.KEY_D)&&p1<1&&player1<0)
-			p1++;
-		if(input.isKeyDown(Input.KEY_A)&&p1>0&&player2<0)
-			p1--;
+		if(input.isKeyDown(Input.KEY_D)&&CharacterSelect.PLAYER1<0)
+			p1 = Math.max(p1+1, 1);
+		if(input.isKeyDown(Input.KEY_A)&&CharacterSelect.PLAYER1<0)
+			p1 = Math.min(p1-1, 0);
 			
-		if(input.isKeyDown(Input.KEY_RIGHT)&&p2<1&&player2<0)
-			p2++;
-		if(input.isKeyDown(Input.KEY_LEFT)&&p2>0&&player2<0)
-			p2--;
+		if(input.isKeyDown(Input.KEY_RIGHT)&&CharacterSelect.PLAYER2<0)
+			p2 = Math.max(p2+1, 1);
+		if(input.isKeyDown(Input.KEY_LEFT)&&CharacterSelect.PLAYER2<0)
+			p2 = Math.min(p2-1, 0);
+		
 		
 		// Sobald die Auswahl Taste gedr�ckt wird, wird das Ziel des Cursor dem Spieler zugewiesen
-		if(input.isKeyDown(Input.KEY_W)&&player1<0){
-			if(p1==0)
-				player1=0;
-			else
-				player1=1;
+		if(input.isKeyDown(Input.KEY_W)){
+				CharacterSelect.setPlayer1(p1);
 		}
 		
-		if(input.isKeyDown(Input.KEY_UP)&&player2<0){
-			if(p2==0)
-				player2=0;
-			else
-				player2=1;
+		if(input.isKeyDown(Input.KEY_UP)){
+				CharacterSelect.setPlayer2(p2);
 		}
 		
-		if(player1!=-1&&player2!=-1){
+		if(CharacterSelect.PLAYER1!=-1&&CharacterSelect.PLAYER2!=-1){
 			//sobald beide Spieler ausgew�hlt wurden beginnt das Spiel
 			sbg.enterState(PongPlay.GAMEPLAY);
 		}
 		
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
-			player1=-1;
-			player2=-1;
+			CharacterSelect.setPlayer1(-1);
+			CharacterSelect.setPlayer2(-1);
 			sbg.enterState(PongPlay.MAINMENU);
 		}
 	}
@@ -138,5 +134,12 @@ public class CharacterSelect extends BasicGameState {
 		return stateID;
 	}
 
+	public static void setPlayer1(int character) {
+		CharacterSelect.PLAYER1 = character;
+	}
+	
+	public static void setPlayer2(int character) {
+		CharacterSelect.PLAYER2 = character;
+	}
 
 }

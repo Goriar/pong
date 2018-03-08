@@ -203,8 +203,8 @@ public class Gameplay extends BasicGameState{
 		
 		// legt die Characters neu fest
 		if(currentstate==GState.INIT){
-			player1.setChar(CharacterSelect.player1);
-			player2.setChar(CharacterSelect.player2);
+			player1.setChar(CharacterSelect.PLAYER1);
+			player2.setChar(CharacterSelect.PLAYER2);
 			ball = new Ball(PongPlay.WIDTH/2,PongPlay.HEIGHT/2+50);
 			currentstate=GState.GAME_START;
 		}
@@ -306,8 +306,8 @@ public class Gameplay extends BasicGameState{
 		
 		if (input.isKeyDown(Input.KEY_ESCAPE)){
 			//f�hrt ins Hauptmen� zur�ck und Resetet die Spielercharaktere
-			CharacterSelect.player1= -1;
-			CharacterSelect.player2= -1;
+			CharacterSelect.PLAYER1= -1;
+			CharacterSelect.PLAYER2= -1;
 			player1.setCombo(0);
 			player2.setCombo(0);
 			player1.setPoints(0);
