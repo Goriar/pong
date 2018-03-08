@@ -99,14 +99,14 @@ public class CharacterSelect extends BasicGameState {
 		
 		// Legt die Steuerung des Cursors fest
 		if(input.isKeyDown(Input.KEY_D)&&CharacterSelect.PLAYER1<0)
-			p1 = Math.max(p1+1, 1);
+			p1 = Math.min(p1+1, 1);
 		if(input.isKeyDown(Input.KEY_A)&&CharacterSelect.PLAYER1<0)
-			p1 = Math.min(p1-1, 0);
+			p1 = Math.max(p1-1, 0);
 			
 		if(input.isKeyDown(Input.KEY_RIGHT)&&CharacterSelect.PLAYER2<0)
-			p2 = Math.max(p2+1, 1);
+			p2 = Math.min(p2+1, 1);
 		if(input.isKeyDown(Input.KEY_LEFT)&&CharacterSelect.PLAYER2<0)
-			p2 = Math.min(p2-1, 0);
+			p2 = Math.max(p2-1, 0);
 		
 		
 		// Sobald die Auswahl Taste gedr�ckt wird, wird das Ziel des Cursor dem Spieler zugewiesen
