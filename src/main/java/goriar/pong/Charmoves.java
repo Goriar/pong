@@ -14,31 +14,31 @@ public class Charmoves {
 	static Timer t1 = new Timer();
 	static Timer t2 = new Timer();
 
-	public Charmoves() {
-
+	private Charmoves() {
+		throw new IllegalStateException("Utility Class");
 	}
 
 	public static void jump(Rectangle player, float delta, int playerNum) {
 
 		if (playerNum == 1) {
 			if (!reached1) {
-				reached1 = move(player, delta, playerNum, 1, PongPlay.WIDTH / 2 - 30);
+				reached1 = move(player, delta, 1, PongPlay.WIDTH / 2 - 30);
 			} else {
-				finished1 = move(player, delta, playerNum, -1, 20);
+				finished1 = move(player, delta, -1, 20);
 				reached1 = !finished1;
 			}
 		} else {
 			if (!reached2) {
-				reached2 = move(player, delta, playerNum, -1, PongPlay.WIDTH / 2 + 10);
+				reached2 = move(player, delta, -1, PongPlay.WIDTH / 2 + 10);
 			} else {
-				finished2 = move(player, delta, playerNum, 1, 750);
+				finished2 = move(player, delta, 1, 750);
 				reached2 = !finished2;
 			}
 		}
 
 	}
 
-	public static boolean move(Rectangle player, float delta, int playerNum, int direction, int placeToReach) {
+	public static boolean move(Rectangle player, float delta, int direction, int placeToReach) {
 		// pr�ft welcher Spieler den Sprung ausf�hrt und in welche Richtung er sich
 		// bewegen soll
 		player.setX(player.getX() + 1000 * direction * delta);
