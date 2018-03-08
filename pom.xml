@@ -10,9 +10,41 @@
   <name>pong</name>
   <url>http://maven.apache.org</url>
 
+<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>goriar.pong.PongPlay</mainClass>
+              <classpathPrefix>lib/</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.library.path>./lib</java.library.path>
   </properties>
-
+<dependencies><!-- https://mvnrepository.com/artifact/org.slick2d/slick2d-core -->
+ <dependency>
+      <groupId>de.goriar.slick</groupId>
+      <artifactId>slick.jar</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+   <systemPath>${basedir}/lib/slick.jar</systemPath>
+   </dependency>
+   <dependency>
+      <groupId>de.goriar.lwjgl</groupId>
+      <artifactId>lwjgl.jar</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+   <systemPath>${basedir}/lib/lwjgl.jar</systemPath>
+   </dependency></dependencies>
 </project>
