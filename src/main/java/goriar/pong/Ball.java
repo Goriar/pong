@@ -7,13 +7,13 @@ import org.newdawn.slick.geom.Shape;
 
 public class Ball {
 	
-	private Circle ball;
+	private Circle ballGeometry;
 	private float xspeed;
 	private float yspeed;
 	
 	//Constructor um ein neues Ballobjekt zu erstellen
 	public Ball(float x, float y){
-		ball = new Circle(x,y,Gameplay.BALL_RADIUS);
+		ballGeometry = new Circle(x,y,Gameplay.BALL_RADIUS);
 		Random r = new Random();
 		
 		// w�hlt zuf�llig die Richtung des Balls
@@ -50,6 +50,6 @@ public class Ball {
 	
 	//gibt die Form des Balls zur�ck
 	public Shape getShape(){
-		return ball;
+		return ballGeometry;
 	}
 }
