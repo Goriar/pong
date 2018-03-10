@@ -51,9 +51,9 @@ public class CharacterSelect extends BasicGameState {
 		// zeichnet den Hintergrund und die Bilder der Chars
 		bg.draw(0, 0);
 
-		char1.draw(PongPlay.WIDTH / 2f - 190f, PongPlay.HEIGHT / 2 - 100f, PongPlay.WIDTH / 2f - 60f,
+		char1.draw(PongPlay.WIDTH / 2f - 190f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f - 60f,
 				PongPlay.HEIGHT / 2f + 100f, 247, 16, 431, 240);
-		char2.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2 - 100f, PongPlay.WIDTH / 2f + 60f,
+		char2.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f + 60f,
 				PongPlay.HEIGHT / 2f + 100f, 39, 16, 230, 240);
 
 		// Zeichnet den Cursor entsprechend seiner aktuellen Position
