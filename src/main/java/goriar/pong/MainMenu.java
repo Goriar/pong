@@ -20,7 +20,7 @@ public class MainMenu extends BasicGameState {
 	Image background = null;
 	Image instruc = null;
 	Sound fx = null;
-	UnicodeFont truetypefont = null;
+	UnicodeFont unicodeFont = null;
 	int menuX = 100;
 	int menuY = 200;
 	int instX = 100;
@@ -41,10 +41,10 @@ public class MainMenu extends BasicGameState {
 		instruc = new Image("Data/instructions.jpg");
 
 		Font font = new Font("Verdana", Font.BOLD, 40);
-		truetypefont = new UnicodeFont(font);
-		truetypefont.addAsciiGlyphs();
-		truetypefont.getEffects().add(new ColorEffect(java.awt.Color.white));
-		truetypefont.loadGlyphs();
+		unicodeFont = new UnicodeFont(font);
+		unicodeFont.addAsciiGlyphs();
+		unicodeFont.getEffects().add(new ColorEffect(java.awt.Color.white));
+		unicodeFont.loadGlyphs();
 
 		state = MState.Start;
 	}
@@ -53,8 +53,8 @@ public class MainMenu extends BasicGameState {
 		if (state == MState.Start) {
 			// zeichnet den Hintergrund und die Auswahlm�glichkeiten
 			background.draw(0, 0);
-			truetypefont.drawString(menuX, menuY, "Spiel starten!", Color.red);
-			truetypefont.drawString(instX, instY, "Instructions", Color.red);
+			unicodeFont.drawString(menuX, menuY, "Spiel starten!", Color.red);
+			unicodeFont.drawString(instX, instY, "Instructions", Color.red);
 		} else
 			// zeichnet die Anleitung
 			instruc.draw(0, 0);
@@ -71,26 +71,22 @@ public class MainMenu extends BasicGameState {
 			boolean insideInst = false;
 
 			// pr�ft ob die Maus �ber einer der Auswahlm�glichkeiten liegt
-			if (mouseX >= menuX && mouseX <= menuX + truetypefont.getWidth("Spiel starten!") && mouseY >= menuY
-					&& mouseY <= menuY + truetypefont.getHeight("Spiel starten")) {
+			if (mouseX >= menuX && mouseX <= menuX + unicodeFont.getWidth("Spiel starten!") && mouseY >= menuY
+					&& mouseY <= menuY + unicodeFont.getHeight("Spiel starten")) {
 				insideStart = true;
 			}
 
-			if (mouseX >= instX && mouseX <= instX + truetypefont.getWidth("Instructions") && mouseY >= instY
-					&& mouseY <= instY + truetypefont.getHeight("Instructions")) {
+			if (mouseX >= instX && mouseX <= instX + unicodeFont.getWidth("Instructions") && mouseY >= instY
+					&& mouseY <= instY + unicodeFont.getHeight("Instructions")) {
 				insideInst = true;
 			}
 
 			// pr�ft ob die Maus dann geklickt wurde
-			if (insideStart) {
-				if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-					sbg.enterState(PongPlay.CHARACTERSELECT);
-				}
+			if (insideStart && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+				sbg.enterState(PongPlay.CHARACTERSELECT);
 			}
-			if (insideInst) {
-				if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-					state = MState.Instruction;
-				}
+			if (insideInst && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+				state = MState.Instruction;
 			}
 		} else {
 			// Um zum Hauptmen� zur�ck zu kehren dr�ckt man ESC

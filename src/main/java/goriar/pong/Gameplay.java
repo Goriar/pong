@@ -18,6 +18,18 @@ public class Gameplay extends BasicGameState {
 	public static final int BALL_RADIUS = 12;
 	public static final int PLAYER_WIDTH = 50;
 	public static final int PLAYER_HEIGHT = 100;
+	public static final int[][] PLAYER1_COMBO_MARKERS = new int[][] { new int[] { 18, 17, 138, 117, 190, 0, 335, 163 },
+			new int[] { 18, 17, 138, 117, 190, 163, 335, 331 }, new int[] { 18, 17, 138, 117, 190, 331, 335, 500 },
+			new int[] { 18, 17, 138, 117, 335, 0, 479, 163 }, new int[] { 18, 17, 138, 117, 335, 163, 479, 331 },
+			new int[] { 18, 17, 138, 117, 335, 331, 479, 500 }, new int[] { 18, 17, 138, 117, 479, 0, 623, 163 },
+			new int[] { 18, 17, 138, 117, 479, 163, 623, 331 }, new int[] { 18, 17, 138, 117, 623, 0, 770, 163 },
+			new int[] { 18, 17, 138, 117, 623, 163, 770, 331 }, new int[] { 18, 17, 138, 117, 623, 331, 770, 500 } };
+	public static final int[][] PLAYER2_COMBO_MARKERS = new int[][] { new int[] { 782, 17, 662, 117, 190, 0, 335, 163 },
+			new int[] { 782, 17, 662, 117, 190, 163, 335, 331 }, new int[] { 782, 17, 662, 117, 190, 331, 335, 500 },
+			new int[] { 782, 17, 662, 117, 335, 0, 479, 163 }, new int[] { 782, 17, 662, 117, 335, 163, 479, 331 },
+			new int[] { 782, 17, 662, 117, 335, 331, 479, 500 }, new int[] { 782, 17, 662, 117, 479, 0, 623, 163 },
+			new int[] { 782, 17, 662, 117, 479, 163, 623, 331 }, new int[] { 782, 17, 662, 117, 623, 0, 770, 163 },
+			new int[] { 782, 17, 662, 117, 623, 163, 770, 331 }, new int[] { 782, 17, 662, 117, 623, 331, 770, 500 } };
 
 	Image bg;
 	Image p1;
@@ -162,78 +174,20 @@ public class Gameplay extends BasicGameState {
 		cborder2.draw(790, 5, 650, 130, 0, 0, 174, 208);
 
 		// f�llt die Comboleiste entsprechend zur combovariable
-		switch (player1.getCombo()) {
-		case 0:
-			cbar1.draw(18, 17, 138, 117, 190, 0, 335, 163);
-			break;
-		case 1:
-			cbar1.draw(18, 17, 138, 117, 190, 163, 335, 331);
-			break;
-		case 2:
-			cbar1.draw(18, 17, 138, 117, 190, 331, 335, 500);
-			break;
-		case 3:
-			cbar1.draw(18, 17, 138, 117, 335, 0, 479, 163);
-			break;
-		case 4:
-			cbar1.draw(18, 17, 138, 117, 335, 163, 479, 331);
-			break;
-		case 5:
-			cbar1.draw(18, 17, 138, 117, 335, 331, 479, 500);
-			break;
-		case 6:
-			cbar1.draw(18, 17, 138, 117, 479, 0, 623, 163);
-			break;
-		case 7:
-			cbar1.draw(18, 17, 138, 117, 479, 163, 623, 331);
-			break;
-		case 8:
-			cbar1.draw(18, 17, 138, 117, 623, 0, 770, 163);
-			break;
-		case 9:
-			cbar1.draw(18, 17, 138, 117, 623, 163, 770, 331);
-			break;
-		default:
-			cbar1.draw(18, 17, 138, 117, 623, 331, 770, 500);
-			break;
-		}
+		drawComboBox(1, player1.getCombo());
+		drawComboBox(2, player2.getCombo());
+	}
 
-		switch (player2.getCombo()) {
-		case 0:
-			cbar2.draw(782, 17, 662, 117, 190, 0, 335, 163);
-			break;
-		case 1:
-			cbar2.draw(782, 17, 662, 117, 190, 163, 335, 331);
-			break;
-		case 2:
-			cbar2.draw(782, 17, 662, 117, 190, 331, 335, 500);
-			break;
-		case 3:
-			cbar2.draw(782, 17, 662, 117, 335, 0, 479, 163);
-			break;
-		case 4:
-			cbar2.draw(782, 17, 662, 117, 335, 163, 479, 331);
-			break;
-		case 5:
-			cbar2.draw(782, 17, 662, 117, 335, 331, 479, 500);
-			break;
-		case 6:
-			cbar2.draw(782, 17, 662, 117, 479, 0, 623, 163);
-			break;
-		case 7:
-			cbar2.draw(782, 17, 662, 117, 479, 163, 623, 331);
-			break;
-		case 8:
-			cbar2.draw(782, 17, 662, 117, 623, 0, 770, 163);
-			break;
-		case 9:
-			cbar2.draw(782, 17, 662, 117, 623, 163, 770, 331);
-			break;
-		default:
-			cbar2.draw(782, 17, 662, 117, 623, 331, 770, 500);
-			break;
+	private void drawComboBox(int playerIndex, int combo) {
+		if (playerIndex == 1) {
+			cbar1.draw(PLAYER1_COMBO_MARKERS[combo][0], PLAYER1_COMBO_MARKERS[combo][1],
+					PLAYER1_COMBO_MARKERS[combo][2], PLAYER1_COMBO_MARKERS[combo][3], PLAYER1_COMBO_MARKERS[combo][4],
+					PLAYER1_COMBO_MARKERS[combo][5], PLAYER1_COMBO_MARKERS[combo][6], PLAYER1_COMBO_MARKERS[combo][7]);
+		} else {
+			cbar2.draw(PLAYER2_COMBO_MARKERS[combo][0], PLAYER2_COMBO_MARKERS[combo][1],
+					PLAYER2_COMBO_MARKERS[combo][2], PLAYER2_COMBO_MARKERS[combo][3], PLAYER2_COMBO_MARKERS[combo][4],
+					PLAYER2_COMBO_MARKERS[combo][5], PLAYER2_COMBO_MARKERS[combo][6], PLAYER2_COMBO_MARKERS[combo][7]);
 		}
-
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -250,42 +204,33 @@ public class Gameplay extends BasicGameState {
 		Input input = gc.getInput();
 
 		// Legt die Steuerung der Spieler fest
-		if (input.isKeyDown(Input.KEY_S)) {
-			if (player1.getShape().getMaxY() <= PongPlay.HEIGHT)
-				player1.getShape().setY(player1.getShape().getY() + 500 * milliDelta);
-
+		if (input.isKeyDown(Input.KEY_S) && player1.getShape().getMaxY() <= PongPlay.HEIGHT) {
+			player1.getShape().setY(player1.getShape().getY() + 500 * milliDelta);
 		}
 
-		if (input.isKeyDown(Input.KEY_W)) {
-			if (player1.getShape().getMinY() >= 150)
-				player1.getShape().setY(player1.getShape().getY() - 500 * milliDelta);
-
+		if (input.isKeyDown(Input.KEY_W) && player1.getShape().getMinY() >= 150) {
+			player1.getShape().setY(player1.getShape().getY() - 500 * milliDelta);
 		}
 
-		if (input.isKeyDown(Input.KEY_DOWN)) {
-			if (player2.getShape().getMaxY() <= PongPlay.HEIGHT)
-				player2.getShape().setY(player2.getShape().getY() + 500 * milliDelta);
-
+		if (input.isKeyDown(Input.KEY_DOWN) && player2.getShape().getMaxY() <= PongPlay.HEIGHT) {
+			player2.getShape().setY(player2.getShape().getY() + 500 * milliDelta);
 		}
 
-		if (input.isKeyDown(Input.KEY_UP)) {
-			if (player2.getShape().getMinY() >= 150)
-				player2.getShape().setY(player2.getShape().getY() - 500 * milliDelta);
-
+		if (input.isKeyDown(Input.KEY_UP) && player2.getShape().getMinY() >= 150) {
+			player2.getShape().setY(player2.getShape().getY() - 500 * milliDelta);
 		}
 
 		if (currentstate == GState.PLAY) {
-			if (input.isKeyPressed(Input.KEY_D)) {
-
+			if (input.isKeyPressed(Input.KEY_D) && ball.getShape().getMinX() < player1.getShape().getMaxX() + 50
+					&& ball.getXSpeed() < 0) {
 				// fragt ab ob der ball sich auf den Schl�ger zu bewegt und ob der Ball im
 				// Schlagraum ist
-				if (ball.getShape().getMinX() < player1.getShape().getMaxX() + 50 && ball.getXSpeed() < 0)
-					superhit1 = true;
+				superhit1 = true;
 			}
 
-			if (input.isKeyPressed(Input.KEY_LEFT)) {
-				if (ball.getShape().getMaxX() > player2.getShape().getMinX() - 50 && ball.getXSpeed() > 0)
-					superhit2 = true;
+			if (input.isKeyPressed(Input.KEY_LEFT) && ball.getShape().getMaxX() > player2.getShape().getMinX() - 50
+					&& ball.getXSpeed() > 0) {
+				superhit2 = true;
 			}
 		}
 
@@ -323,24 +268,21 @@ public class Gameplay extends BasicGameState {
 			}
 		}
 
-		if (currentstate == GState.GAME_START || currentstate == GState.BALL_OUT) {
-
+		if ((currentstate == GState.GAME_START || currentstate == GState.BALL_OUT)
+				&& input.isKeyDown(Input.KEY_ENTER)) {
 			// wartet bis ein Spieler Enter dr�ckt damit, das Spiel weiter geht
-			if (input.isKeyDown(Input.KEY_ENTER)) {
-				currentstate = GState.PLAY;
-			}
+			currentstate = GState.PLAY;
 		}
 
-		if (currentstate == GState.PLAYER_1_WINS || currentstate == GState.PLAYER_2_WINS) {
-			if (input.isKeyDown(Input.KEY_ENTER)) {
-				// Resetet den ball, die punkte und die combos
-				player1.setPoints(0);
-				player2.setPoints(0);
-				ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
-				player1.setCombo(0);
-				player2.setCombo(0);
-				currentstate = GState.PLAY;
-			}
+		if ((currentstate == GState.PLAYER_1_WINS || currentstate == GState.PLAYER_2_WINS)
+				&& input.isKeyDown(Input.KEY_ENTER)) {
+			// Resetet den ball, die punkte und die combos
+			player1.setPoints(0);
+			player2.setPoints(0);
+			ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
+			player1.setCombo(0);
+			player2.setCombo(0);
+			currentstate = GState.PLAY;
 		}
 
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
