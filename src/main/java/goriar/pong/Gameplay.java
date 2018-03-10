@@ -232,22 +232,7 @@ public class Gameplay extends BasicGameState {
 		float milliDelta = delta / 1000.0f;
 		Input input = gc.getInput();
 
-		// Legt die Steuerung der Spieler fest
-		if (input.isKeyDown(Input.KEY_S) && player1.getShape().getMaxY() <= PongPlay.HEIGHT) {
-			player1.getShape().setY(player1.getShape().getY() + 500 * milliDelta);
-		}
-
-		if (input.isKeyDown(Input.KEY_W) && player1.getShape().getMinY() >= 150) {
-			player1.getShape().setY(player1.getShape().getY() - 500 * milliDelta);
-		}
-
-		if (input.isKeyDown(Input.KEY_DOWN) && player2.getShape().getMaxY() <= PongPlay.HEIGHT) {
-			player2.getShape().setY(player2.getShape().getY() + 500 * milliDelta);
-		}
-
-		if (input.isKeyDown(Input.KEY_UP) && player2.getShape().getMinY() >= 150) {
-			player2.getShape().setY(player2.getShape().getY() - 500 * milliDelta);
-		}
+		playerMovement(milliDelta, input);
 
 		if ((currentstate == GState.GAME_START || currentstate == GState.BALL_OUT)
 				&& input.isKeyDown(Input.KEY_ENTER)) {
@@ -292,6 +277,25 @@ public class Gameplay extends BasicGameState {
 
 		if (currentstate == GState.ULTRA2) {
 			ultra2State(milliDelta, input);
+		}
+	}
+
+	private void playerMovement(float milliDelta, Input input) {
+		// Legt die Steuerung der Spieler fest
+		if (input.isKeyDown(Input.KEY_S) && player1.getShape().getMaxY() <= PongPlay.HEIGHT) {
+			player1.getShape().setY(player1.getShape().getY() + 500 * milliDelta);
+		}
+
+		if (input.isKeyDown(Input.KEY_W) && player1.getShape().getMinY() >= 150) {
+			player1.getShape().setY(player1.getShape().getY() - 500 * milliDelta);
+		}
+
+		if (input.isKeyDown(Input.KEY_DOWN) && player2.getShape().getMaxY() <= PongPlay.HEIGHT) {
+			player2.getShape().setY(player2.getShape().getY() + 500 * milliDelta);
+		}
+
+		if (input.isKeyDown(Input.KEY_UP) && player2.getShape().getMinY() >= 150) {
+			player2.getShape().setY(player2.getShape().getY() - 500 * milliDelta);
 		}
 	}
 
