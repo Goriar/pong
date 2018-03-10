@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Shape;
 
 public class Player {
 
-	private Rectangle player;
+	private Rectangle playerRectangle;
 	private int points;
 	private int characterselect;
 	private int combo;
@@ -15,7 +15,7 @@ public class Player {
 
 	// Constructor f�r einen neuen Spieler
 	public Player(int x, int y, int width, int height, int c) {
-		player = new Rectangle(x, y, width, height);
+		playerRectangle = new Rectangle(x, y, width, height);
 		points = 0;
 		characterselect = c;
 		combo = 0;
@@ -24,7 +24,7 @@ public class Player {
 
 	// zum erhalten der Form des Objekts
 	public Shape getShape() {
-		return player;
+		return playerRectangle;
 	}
 
 	// gibt die Punkte des Spielers an
@@ -49,17 +49,17 @@ public class Player {
 
 	// setzt die Gr��e des Spielers zur�ck (f�r Charmove shrink)
 	public void resetSize() {
-		player.setWidth(Gameplay.PLAYER_WIDTH);
-		player.setHeight(Gameplay.PLAYER_HEIGHT);
+		playerRectangle.setWidth(Gameplay.PLAYER_WIDTH);
+		playerRectangle.setHeight(Gameplay.PLAYER_HEIGHT);
 	}
 
 	public void doMove(float delta, Player enemy) {
 
 		// f�hrt entsprechend des Charakters den Charmove aus
 		if (characterselect == 0) {
-			Charmoves.jump(player, delta, playerNum);
+			Charmoves.jump(playerRectangle, delta, playerNum);
 		} else {
-			Charmoves.shrink(enemy.player, delta, Gameplay.PLAYER_WIDTH, Gameplay.PLAYER_HEIGHT);
+			Charmoves.shrink(enemy.playerRectangle, delta, Gameplay.PLAYER_WIDTH, Gameplay.PLAYER_HEIGHT);
 		}
 	}
 

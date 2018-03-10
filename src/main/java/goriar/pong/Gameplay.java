@@ -18,18 +18,20 @@ public class Gameplay extends BasicGameState {
 	public static final int BALL_RADIUS = 12;
 	public static final int PLAYER_WIDTH = 50;
 	public static final int PLAYER_HEIGHT = 100;
-	public static final int[][] PLAYER1_COMBO_MARKERS = new int[][] { new int[] { 18, 17, 138, 117, 190, 0, 335, 163 },
-			new int[] { 18, 17, 138, 117, 190, 163, 335, 331 }, new int[] { 18, 17, 138, 117, 190, 331, 335, 500 },
-			new int[] { 18, 17, 138, 117, 335, 0, 479, 163 }, new int[] { 18, 17, 138, 117, 335, 163, 479, 331 },
-			new int[] { 18, 17, 138, 117, 335, 331, 479, 500 }, new int[] { 18, 17, 138, 117, 479, 0, 623, 163 },
-			new int[] { 18, 17, 138, 117, 479, 163, 623, 331 }, new int[] { 18, 17, 138, 117, 623, 0, 770, 163 },
-			new int[] { 18, 17, 138, 117, 623, 163, 770, 331 }, new int[] { 18, 17, 138, 117, 623, 331, 770, 500 } };
-	public static final int[][] PLAYER2_COMBO_MARKERS = new int[][] { new int[] { 782, 17, 662, 117, 190, 0, 335, 163 },
-			new int[] { 782, 17, 662, 117, 190, 163, 335, 331 }, new int[] { 782, 17, 662, 117, 190, 331, 335, 500 },
-			new int[] { 782, 17, 662, 117, 335, 0, 479, 163 }, new int[] { 782, 17, 662, 117, 335, 163, 479, 331 },
-			new int[] { 782, 17, 662, 117, 335, 331, 479, 500 }, new int[] { 782, 17, 662, 117, 479, 0, 623, 163 },
-			new int[] { 782, 17, 662, 117, 479, 163, 623, 331 }, new int[] { 782, 17, 662, 117, 623, 0, 770, 163 },
-			new int[] { 782, 17, 662, 117, 623, 163, 770, 331 }, new int[] { 782, 17, 662, 117, 623, 331, 770, 500 } };
+	protected static final int[][] PLAYER1_COMBO_MARKERS = new int[][] {
+			new int[] { 18, 17, 138, 117, 190, 0, 335, 163 }, new int[] { 18, 17, 138, 117, 190, 163, 335, 331 },
+			new int[] { 18, 17, 138, 117, 190, 331, 335, 500 }, new int[] { 18, 17, 138, 117, 335, 0, 479, 163 },
+			new int[] { 18, 17, 138, 117, 335, 163, 479, 331 }, new int[] { 18, 17, 138, 117, 335, 331, 479, 500 },
+			new int[] { 18, 17, 138, 117, 479, 0, 623, 163 }, new int[] { 18, 17, 138, 117, 479, 163, 623, 331 },
+			new int[] { 18, 17, 138, 117, 623, 0, 770, 163 }, new int[] { 18, 17, 138, 117, 623, 163, 770, 331 },
+			new int[] { 18, 17, 138, 117, 623, 331, 770, 500 } };
+	protected static final int[][] PLAYER2_COMBO_MARKERS = new int[][] {
+			new int[] { 782, 17, 662, 117, 190, 0, 335, 163 }, new int[] { 782, 17, 662, 117, 190, 163, 335, 331 },
+			new int[] { 782, 17, 662, 117, 190, 331, 335, 500 }, new int[] { 782, 17, 662, 117, 335, 0, 479, 163 },
+			new int[] { 782, 17, 662, 117, 335, 163, 479, 331 }, new int[] { 782, 17, 662, 117, 335, 331, 479, 500 },
+			new int[] { 782, 17, 662, 117, 479, 0, 623, 163 }, new int[] { 782, 17, 662, 117, 479, 163, 623, 331 },
+			new int[] { 782, 17, 662, 117, 623, 0, 770, 163 }, new int[] { 782, 17, 662, 117, 623, 163, 770, 331 },
+			new int[] { 782, 17, 662, 117, 623, 331, 770, 500 } };
 
 	Image bg;
 	Image p1;
@@ -194,8 +196,8 @@ public class Gameplay extends BasicGameState {
 
 		// legt die Characters neu fest
 		if (currentstate == GState.INIT) {
-			player1.setChar(CharacterSelect.player1);
-			player2.setChar(CharacterSelect.player2);
+			player1.setChar(CharacterSelect.getPlayer1Char());
+			player2.setChar(CharacterSelect.getPlayer2Char());
 			ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
 			currentstate = GState.GAME_START;
 		}
@@ -287,8 +289,8 @@ public class Gameplay extends BasicGameState {
 
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			// f�hrt ins Hauptmen� zur�ck und Resetet die Spielercharaktere
-			CharacterSelect.player1 = -1;
-			CharacterSelect.player2 = -1;
+			CharacterSelect.setPlayer1(-1);
+			CharacterSelect.setPlayer2(-1);
 			player1.setCombo(0);
 			player2.setCombo(0);
 			player1.setPoints(0);

@@ -21,8 +21,8 @@ public class CharacterSelect extends BasicGameState {
 
 	// 0 : Char mit dem Move jump
 	// 1 : Char mit dem Move shrink
-	public static int player1 = -1;
-	public static int player2 = -1;
+	private static int player1 = -1;
+	private static int player2 = -1;
 
 	Image char1;
 	Image char2;
@@ -94,14 +94,14 @@ public class CharacterSelect extends BasicGameState {
 		Input input = gc.getInput();
 
 		// Legt die Steuerung des Cursors fest
-		if (input.isKeyDown(Input.KEY_D) && CharacterSelect.player1 < 0)
+		if (input.isKeyDown(Input.KEY_D) && CharacterSelect.getPlayer1Char() < 0)
 			p1 = Math.min(p1 + 1, 1);
-		if (input.isKeyDown(Input.KEY_A) && CharacterSelect.player1 < 0)
+		if (input.isKeyDown(Input.KEY_A) && CharacterSelect.getPlayer1Char() < 0)
 			p1 = Math.max(p1 - 1, 0);
 
-		if (input.isKeyDown(Input.KEY_RIGHT) && CharacterSelect.player2 < 0)
+		if (input.isKeyDown(Input.KEY_RIGHT) && CharacterSelect.getPlayer2Char() < 0)
 			p2 = Math.min(p2 + 1, 1);
-		if (input.isKeyDown(Input.KEY_LEFT) && CharacterSelect.player2 < 0)
+		if (input.isKeyDown(Input.KEY_LEFT) && CharacterSelect.getPlayer2Char() < 0)
 			p2 = Math.max(p2 - 1, 0);
 
 		// Sobald die Auswahl Taste gedr�ckt wird, wird das Ziel des Cursor dem Spieler
@@ -114,7 +114,7 @@ public class CharacterSelect extends BasicGameState {
 			CharacterSelect.setPlayer2(p2);
 		}
 
-		if (CharacterSelect.player1 != -1 && CharacterSelect.player2 != -1) {
+		if (CharacterSelect.getPlayer1Char() != -1 && CharacterSelect.getPlayer2Char() != -1) {
 			// sobald beide Spieler ausgew�hlt wurden beginnt das Spiel
 			sbg.enterState(PongPlay.GAMEPLAY);
 		}
@@ -137,6 +137,14 @@ public class CharacterSelect extends BasicGameState {
 
 	public static void setPlayer2(int character) {
 		CharacterSelect.player2 = character;
+	}
+
+	public static int getPlayer1Char() {
+		return player1;
+	}
+
+	public static int getPlayer2Char() {
+		return player2;
 	}
 
 }
