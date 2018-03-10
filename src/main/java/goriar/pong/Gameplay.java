@@ -317,7 +317,7 @@ public class Gameplay extends BasicGameState {
 				superhit1 = false;
 				currentstate = GState.ULTRA2;
 			}
-			if (ultra2 == false && player2.getCombo() >= 3 && charmove2 == false) {
+			if (!ultra2 && player2.getCombo() >= 3 && !charmove2) {
 				charmove2 = true;
 				player2.setCombo(player2.getCombo() - 3);
 			}
