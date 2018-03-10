@@ -116,12 +116,12 @@ public class Gameplay extends BasicGameState {
 		gamemessage.getEffects().add(new ColorEffect(java.awt.Color.white));
 		gamemessage.loadGlyphs();
 		currentstate = GState.INIT;
-		superhit1 = false;
-		superhit2 = false;
+		setSuperhit1(false);
+		setSuperhit2(false);
 		ultra1 = false;
 		ultra2 = false;
-		charmove1 = false;
-		charmove2 = false;
+		setCharmove1(false);
+		setCharmove2(false);
 		defend = 0;
 		tries = 0;
 		balls = 0;
@@ -143,7 +143,7 @@ public class Gameplay extends BasicGameState {
 		cborder1 = new Image(BAR_PIC);
 		cbar2 = new Image(BAR_PIC);
 		cborder2 = new Image(BAR_PIC);
-		pball = new Image(BAR_PIC);
+		pball = new Image("Data/ball1.png");
 
 	}
 
@@ -172,10 +172,10 @@ public class Gameplay extends BasicGameState {
 
 		else
 		// falls jemand einen superhit ausf�hrt ver�ndert sich der Rand des Balls
-		if (superhit1 && ball.getXSpeed() > 0)
+		if (isSuperhit1() && ball.getXSpeed() > 0)
 			pball.draw(ball.getShape().getMinX(), ball.getShape().getMinY(), ball.getShape().getMaxX(),
 					ball.getShape().getMaxY(), 0, 96, 103, 186);
-		else if (superhit2 && ball.getXSpeed() < 0)
+		else if (isSuperhit2() && ball.getXSpeed() < 0)
 			pball.draw(ball.getShape().getMinX(), ball.getShape().getMinY(), ball.getShape().getMaxX(),
 					ball.getShape().getMaxY(), 0, 186, 103, 280);
 		else
@@ -260,12 +260,12 @@ public class Gameplay extends BasicGameState {
 					&& ball.getXSpeed() < 0) {
 				// fragt ab ob der ball sich auf den Schl�ger zu bewegt und ob der Ball im
 				// Schlagraum ist
-				superhit1 = true;
+				setSuperhit1(true);
 			}
 
 			if (input.isKeyPressed(Input.KEY_LEFT) && ball.getShape().getMaxX() > player2.getShape().getMinX() - 50
 					&& ball.getXSpeed() > 0) {
-				superhit2 = true;
+				setSuperhit2(true);
 			}
 		}
 
@@ -278,12 +278,12 @@ public class Gameplay extends BasicGameState {
 					&& ball.getShape().getMinY() <= player1.getShape().getMaxY()) {
 				balls = 0;
 				player1.setCombo(0);
-				superhit2 = false;
+				setSuperhit2(false);
 				currentstate = GState.ULTRA1;
 			}
 			// falls kein Ultramove bereit ist wird abgefragt ob der Charmove bereit ist
-			if (!ultra1 && player1.getCombo() >= 3 && !charmove1) {
-				charmove1 = true;
+			if (!ultra1 && player1.getCombo() >= 3 && !isCharmove1()) {
+				setCharmove1(true);
 				player1.setCombo(player1.getCombo() - 3);
 			}
 		}
@@ -294,11 +294,11 @@ public class Gameplay extends BasicGameState {
 					&& ball.getShape().getMinY() <= player2.getShape().getMaxY()) {
 				balls = 0;
 				player2.setCombo(0);
-				superhit1 = false;
+				setSuperhit1(false);
 				currentstate = GState.ULTRA2;
 			}
-			if (!ultra2 && player2.getCombo() >= 3 && !charmove2) {
-				charmove2 = true;
+			if (!ultra2 && player2.getCombo() >= 3 && !isCharmove2()) {
+				setCharmove2(true);
 				player2.setCombo(player2.getCombo() - 3);
 			}
 		}
@@ -328,8 +328,8 @@ public class Gameplay extends BasicGameState {
 			player2.setCombo(0);
 			player1.setPoints(0);
 			player2.setPoints(0);
-			superhit1 = false;
-			superhit2 = false;
+			setSuperhit1(false);
+			setSuperhit2(false);
 			ultra1 = false;
 			ultra2 = false;
 			currentstate = GState.INIT;
@@ -382,10 +382,10 @@ public class Gameplay extends BasicGameState {
 
 				// resetet die Spieler und den Ball
 				ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
-				superhit1 = false;
-				superhit2 = false;
-				charmove1 = false;
-				charmove2 = false;
+				setSuperhit1(false);
+				setSuperhit2(false);
+				setCharmove1(false);
+				setCharmove2(false);
 				player1.getShape().setX(20);
 				player2.getShape().setX(730);
 				player1.getShape().setY(PongPlay.HEIGHT / 2f);
@@ -407,17 +407,17 @@ public class Gameplay extends BasicGameState {
 			}
 
 			// f�hrt den Charmove aus
-			if (charmove1) {
+			if (isCharmove1()) {
 				player1.doMove(milliDelta, player2);
 				if (Charmoves.finished1)
-					charmove1 = false;
+					setCharmove1(false);
 				Charmoves.finished1 = false;
 			}
 
-			if (charmove2) {
+			if (isCharmove2()) {
 				player2.doMove(milliDelta, player1);
 				if (Charmoves.finished2)
-					charmove2 = false;
+					setCharmove2(false);
 				Charmoves.finished2 = false;
 			}
 

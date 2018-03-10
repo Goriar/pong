@@ -97,7 +97,6 @@ public class Colission {
 		// Das Gleiche wie oben, nur dass es auf den 2.Spieler angewandt wird
 		if (p2col(player.getShape(), ball.getShape())) {
 			Gameplay.setSuperhit1(false);
-			;
 
 			if (Gameplay.isCharmove2() && player.getChar() == 0) {
 				if (ball.getXSpeed() < 0)
