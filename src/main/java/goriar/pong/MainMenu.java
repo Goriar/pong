@@ -64,38 +64,46 @@ public class MainMenu extends BasicGameState {
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		Input input = gc.getInput();
-
 		if (state == MState.START) {
-			int mouseX = input.getMouseX();
-			int mouseY = input.getMouseY();
-
-			boolean insideStart = false;
-			boolean insideInst = false;
-
-			// pr�ft ob die Maus �ber einer der Auswahlm�glichkeiten liegt
-			if (mouseX >= menuX && mouseX <= menuX + unicodeFont.getWidth(GAME_START_STRING) && mouseY >= menuY
-					&& mouseY <= menuY + unicodeFont.getHeight(GAME_START_STRING)) {
-				insideStart = true;
-			}
-
-			if (mouseX >= instX && mouseX <= instX + unicodeFont.getWidth(INSTRUCTION_STRING) && mouseY >= instY
-					&& mouseY <= instY + unicodeFont.getHeight(INSTRUCTION_STRING)) {
-				insideInst = true;
-			}
-
-			// pr�ft ob die Maus dann geklickt wurde
-			if (insideStart && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-				sbg.enterState(PongPlay.CHARACTERSELECT);
-			}
-			if (insideInst && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-				state = MState.INSTRUCTIONS;
-			}
+			startState(gc, sbg);
 		} else {
-			// Um zum Hauptmen� zur�ck zu kehren dr�ckt man ESC
-			if (input.isKeyDown(Input.KEY_ESCAPE))
-				state = MState.START;
+			instructionsState(gc);
 		}
+	}
+
+	private void startState(GameContainer gc, StateBasedGame sbg) {
+		Input input = gc.getInput();
+		int mouseX = input.getMouseX();
+		int mouseY = input.getMouseY();
+
+		boolean insideStart = false;
+		boolean insideInst = false;
+
+		// pr�ft ob die Maus �ber einer der Auswahlm�glichkeiten liegt
+		if (mouseX >= menuX && mouseX <= menuX + unicodeFont.getWidth(GAME_START_STRING) && mouseY >= menuY
+				&& mouseY <= menuY + unicodeFont.getHeight(GAME_START_STRING)) {
+			insideStart = true;
+		}
+
+		if (mouseX >= instX && mouseX <= instX + unicodeFont.getWidth(INSTRUCTION_STRING) && mouseY >= instY
+				&& mouseY <= instY + unicodeFont.getHeight(INSTRUCTION_STRING)) {
+			insideInst = true;
+		}
+
+		// pr�ft ob die Maus dann geklickt wurde
+		if (insideStart && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			sbg.enterState(PongPlay.CHARACTERSELECT);
+		}
+		if (insideInst && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			state = MState.INSTRUCTIONS;
+		}
+	}
+
+	private void instructionsState(GameContainer gc) {
+		Input input = gc.getInput();
+		// Um zum Hauptmen� zur�ck zu kehren dr�ckt man ESC
+		if (input.isKeyDown(Input.KEY_ESCAPE))
+			state = MState.START;
 	}
 
 	@Override
