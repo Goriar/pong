@@ -8,8 +8,25 @@ public class Charmoves {
 	static boolean reached2 = false;
 
 	// in Gameplay wird nach diesen Variabeln gefragt
-	static boolean finished1 = false;
-	static boolean finished2 = false;
+	private static boolean finished1 = false;
+
+	public static boolean isFinished1() {
+		return finished1;
+	}
+
+	public static void setFinished1(boolean finished1) {
+		Charmoves.finished1 = finished1;
+	}
+
+	private static boolean finished2 = false;
+
+	public static boolean isFinished2() {
+		return finished2;
+	}
+
+	public static void setFinished2(boolean finished2) {
+		Charmoves.finished2 = finished2;
+	}
 
 	static Timer t1 = new Timer();
 	static Timer t2 = new Timer();

@@ -409,16 +409,16 @@ public class Gameplay extends BasicGameState {
 			// f�hrt den Charmove aus
 			if (isCharmove1()) {
 				player1.doMove(milliDelta, player2);
-				if (Charmoves.finished1)
+				if (Charmoves.isFinished1())
 					setCharmove1(false);
-				Charmoves.finished1 = false;
+				Charmoves.setFinished1(false);
 			}
 
 			if (isCharmove2()) {
 				player2.doMove(milliDelta, player1);
-				if (Charmoves.finished2)
+				if (Charmoves.isFinished2())
 					setCharmove2(false);
-				Charmoves.finished2 = false;
+				Charmoves.setFinished2(false);
 			}
 
 		}
