@@ -51,42 +51,43 @@ public class CharacterSelect extends BasicGameState {
 		// zeichnet den Hintergrund und die Bilder der Chars
 		bg.draw(0, 0);
 
-		char1.draw(PongPlay.WIDTH / 2 - 190, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 - 60,
-				PongPlay.HEIGHT / 2 + 100, 247, 16, 431, 240);
-		char2.draw(PongPlay.WIDTH / 2 + 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 + 60,
-				PongPlay.HEIGHT / 2 + 100, 39, 16, 230, 240);
+		char1.draw(PongPlay.WIDTH / 2f - 190f, PongPlay.HEIGHT / 2 - 100f, PongPlay.WIDTH / 2f - 60f,
+				PongPlay.HEIGHT / 2f + 100f, 247, 16, 431, 240);
+		char2.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2 - 100f, PongPlay.WIDTH / 2f + 60f,
+				PongPlay.HEIGHT / 2f + 100f, 39, 16, 230, 240);
 
 		// Zeichnet den Cursor entsprechend seiner aktuellen Position
 		if (p1 == 0 && p2 == 0)
-			pick1.draw(PongPlay.WIDTH / 2 - 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 - 60,
-					PongPlay.HEIGHT / 2 + 100, 440, 240, 640, 472);
+			pick1.draw(PongPlay.WIDTH / 2f - 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f - 60f,
+					PongPlay.HEIGHT / 2f + 100f, 440, 240, 640, 472);
 		else if (p1 == 1 && p2 == 1)
-			pick1.draw(PongPlay.WIDTH / 2 + 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 + 60,
-					PongPlay.HEIGHT / 2 + 100, 440, 240, 640, 472);
+			pick1.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f + 60f,
+					PongPlay.HEIGHT / 2f + 100f, 440, 240, 640, 472);
 
 		else {
 			if (p1 == 0)
-				pick1.draw(PongPlay.WIDTH / 2 - 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 - 60,
-						PongPlay.HEIGHT / 2 + 100, 31, 240, 233, 472);
+				pick1.draw(PongPlay.WIDTH / 2f - 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f - 60f,
+						PongPlay.HEIGHT / 2f + 100f, 31, 240, 233, 472);
 			else
-				pick1.draw(PongPlay.WIDTH / 2 + 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 + 60,
-						PongPlay.HEIGHT / 2 + 100, 31, 240, 233, 472);
+				pick1.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f + 60f,
+						PongPlay.HEIGHT / 2f + 100f, 31, 240, 233, 472);
 
 			if (p2 == 0)
-				pick2.draw(PongPlay.WIDTH / 2 - 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 - 60,
-						PongPlay.HEIGHT / 2 + 100, 239, 240, 438, 472);
+				pick2.draw(PongPlay.WIDTH / 2f - 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f - 60f,
+						PongPlay.HEIGHT / 2f + 100f, 239, 240, 438, 472);
 			else
-				pick2.draw(PongPlay.WIDTH / 2 + 200, PongPlay.HEIGHT / 2 - 100, PongPlay.WIDTH / 2 + 60,
-						PongPlay.HEIGHT / 2 + 100, 239, 240, 438, 472);
+				pick2.draw(PongPlay.WIDTH / 2f + 200f, PongPlay.HEIGHT / 2f - 100f, PongPlay.WIDTH / 2f + 60f,
+						PongPlay.HEIGHT / 2f + 100f, 239, 240, 438, 472);
 		}
 
 		// Zeichnet die Spielnachrichten ein
 		g.setColor(Color.yellow);
-		g.drawString("Mit A und D ausw�hlen mit W bestaetigen", PongPlay.WIDTH / 2 - 200, PongPlay.HEIGHT / 2 + 200);
+		g.drawString("Mit A und D ausw�hlen mit W bestaetigen", PongPlay.WIDTH / 2f - 200f,
+				PongPlay.HEIGHT / 2f + 200f);
 
 		g.setColor(Color.green);
-		g.drawString("Mit LINKS und RECHTS ausw�hlen mit HOCH bestaetigen", PongPlay.WIDTH / 2 - 200,
-				PongPlay.HEIGHT / 2 + 240);
+		g.drawString("Mit LINKS und RECHTS ausw�hlen mit HOCH bestaetigen", PongPlay.WIDTH / 2f - 200f,
+				PongPlay.HEIGHT / 2f + 240f);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {

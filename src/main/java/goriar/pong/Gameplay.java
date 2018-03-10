@@ -151,7 +151,7 @@ public class Gameplay extends BasicGameState {
 
 		// Zeichnet alle Spielnachrichten
 		String scoreText = player1.getPoints() + "     " + player2.getPoints();
-		ttfscore.drawString(PongPlay.WIDTH / 2 - ttfscore.getWidth(scoreText) / 2, 5, scoreText, Color.cyan);
+		ttfscore.drawString(PongPlay.WIDTH / 2f - ttfscore.getWidth(scoreText) / 2f, 5, scoreText, Color.cyan);
 
 		if (currentstate == GState.PLAYER_1_WINS) {
 			gamemessage.drawString(250, 70, "Spieler 1 Siegt!");
@@ -355,8 +355,8 @@ public class Gameplay extends BasicGameState {
 				charmove2 = false;
 				player1.getShape().setX(20);
 				player2.getShape().setX(730);
-				player1.getShape().setY(PongPlay.HEIGHT / 2);
-				player2.getShape().setY(PongPlay.HEIGHT / 2);
+				player1.getShape().setY(PongPlay.HEIGHT / 2f);
+				player2.getShape().setY(PongPlay.HEIGHT / 2f);
 				player1.resetSize();
 				player2.resetSize();
 				Charmoves.t1.reset();
@@ -472,7 +472,7 @@ public class Gameplay extends BasicGameState {
 				if (Colission.p1col(player1.getShape(), ultraball2[i].getShape())) {
 					defend++;
 					tries++;
-					ultraball2[i].getShape().setX(PongPlay.WIDTH + 500);
+					ultraball2[i].getShape().setX(PongPlay.WIDTH + 500f);
 				}
 				if (ultraball2[i].getShape().getX() < 0) {
 					tries++;
