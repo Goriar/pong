@@ -4,7 +4,7 @@ notifications:
   email:
     recipients:
       - goriar.cb@gmail.com
-    on_success: always # default: change
+    on_success: change # default: change
     on_failure: always # default: always
 addons:
   sonarcloud:

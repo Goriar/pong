@@ -56,13 +56,10 @@ public class Player {
 	public void doMove(float delta, Player enemy) {
 
 		// f�hrt entsprechend des Charakters den Charmove aus
-		switch (characterselect) {
-		case 0:
+		if (characterselect == 0) {
 			Charmoves.jump(player, delta, playerNum);
-			break;
-		case 1:
+		} else {
 			Charmoves.shrink(enemy.player, delta, Gameplay.PLAYER_WIDTH, Gameplay.PLAYER_HEIGHT);
-			break;
 		}
 	}
 
@@ -70,13 +67,10 @@ public class Player {
 
 		// weist dem Spieler das Aussehen zu
 		Image image = null;
-		switch (characterselect) {
-		case 0:
+		if (characterselect == 0) {
 			image = new Image("Data/char1.png");
-			break;
-		case 1:
+		} else {
 			image = new Image("Data/char2.png");
-			break;
 		}
 		return image;
 	}

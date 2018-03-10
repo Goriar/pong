@@ -9,7 +9,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -19,7 +20,7 @@ public class MainMenu extends BasicGameState {
 	Image background = null;
 	Image instruc = null;
 	Sound fx = null;
-	TrueTypeFont truetypefont = null;
+	UnicodeFont truetypefont = null;
 	int menuX = 100;
 	int menuY = 200;
 	int instX = 100;
@@ -40,7 +41,10 @@ public class MainMenu extends BasicGameState {
 		instruc = new Image("Data/instructions.jpg");
 
 		Font font = new Font("Verdana", Font.BOLD, 40);
-		truetypefont = new TrueTypeFont(font, true);
+		truetypefont = new UnicodeFont(font);
+		truetypefont.addAsciiGlyphs();
+		truetypefont.getEffects().add(new ColorEffect(java.awt.Color.white));
+		truetypefont.loadGlyphs();
 
 		state = MState.Start;
 	}
@@ -55,7 +59,6 @@ public class MainMenu extends BasicGameState {
 			// zeichnet die Anleitung
 			instruc.draw(0, 0);
 	}
-
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		Input input = gc.getInput();
