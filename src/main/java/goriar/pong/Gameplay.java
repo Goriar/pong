@@ -33,6 +33,7 @@ public class Gameplay extends BasicGameState {
 			new int[] { 782, 17, 662, 117, 623, 0, 770, 163 }, new int[] { 782, 17, 662, 117, 623, 163, 770, 331 },
 			new int[] { 782, 17, 662, 117, 623, 331, 770, 500 } };
 
+	public static final String BAR_PIC = "Data/bar.png";
 	Image bg;
 	Image p1;
 	Image p2;
@@ -50,15 +51,15 @@ public class Gameplay extends BasicGameState {
 	Font message;
 	UnicodeFont ttfscore;
 	UnicodeFont gamemessage;
-	static boolean superhit1;
-	static boolean superhit2;
-	static boolean ultra1;
-	static boolean ultra2;
-	static boolean charmove1;
-	static boolean charmove2;
-	static int defend;
-	static int tries;
-	static int balls;
+	private static boolean superhit1;
+	private static boolean superhit2;
+	private static boolean charmove1;
+	private static boolean charmove2;
+	boolean ultra1;
+	boolean ultra2;
+	int defend;
+	int tries;
+	int balls;
 	Ball[] ultraball1;
 	Ball[] ultraball2;
 
@@ -66,6 +67,38 @@ public class Gameplay extends BasicGameState {
 
 	Gameplay(int stateID) {
 		this.stateID = stateID;
+	}
+
+	public static void setSuperhit1(boolean val) {
+		superhit1 = val;
+	}
+
+	public static void setSuperhit2(boolean val) {
+		superhit2 = val;
+	}
+
+	public static void setCharmove1(boolean val) {
+		charmove1 = val;
+	}
+
+	public static void setCharmove2(boolean val) {
+		charmove2 = val;
+	}
+
+	public static boolean isSuperhit1() {
+		return superhit1;
+	}
+
+	public static boolean isSuperhit2() {
+		return superhit2;
+	}
+
+	public static boolean isCharmove1() {
+		return charmove1;
+	}
+
+	public static boolean isCharmove2() {
+		return charmove2;
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -106,11 +139,11 @@ public class Gameplay extends BasicGameState {
 		}
 
 		bg = new Image("Data/play_bg.jpg");
-		cbar1 = new Image("Data/bar.png");
-		cborder1 = new Image("Data/bar.png");
-		cbar2 = new Image("Data/bar.png");
-		cborder2 = new Image("Data/bar.png");
-		pball = new Image("Data/ball1.png");
+		cbar1 = new Image(BAR_PIC);
+		cborder1 = new Image(BAR_PIC);
+		cbar2 = new Image(BAR_PIC);
+		cborder2 = new Image(BAR_PIC);
+		pball = new Image(BAR_PIC);
 
 	}
 
@@ -155,16 +188,16 @@ public class Gameplay extends BasicGameState {
 
 		if (currentstate == GState.PLAYER_1_WINS) {
 			gamemessage.drawString(250, 70, "Spieler 1 Siegt!");
-			gamemessage.drawString(250, 100, "Enter f�r neues Spiel");
+			gamemessage.drawString(250, 100, "Enter für neues Spiel");
 		}
 
 		if (currentstate == GState.PLAYER_2_WINS) {
 			gamemessage.drawString(250, 70, "Spieler 2 Siegt!");
-			gamemessage.drawString(250, 100, "Enter f�r neues Spiel");
+			gamemessage.drawString(250, 100, "Enter für neues Spiel");
 		}
 
 		if (currentstate == GState.BALL_OUT) {
-			gamemessage.drawString(250, 100, "Enter f�r neuen Ball");
+			gamemessage.drawString(250, 100, "Enter für neuen Ball");
 		}
 
 		if (currentstate == GState.GAME_START) {

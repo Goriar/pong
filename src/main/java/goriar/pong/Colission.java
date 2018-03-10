@@ -50,9 +50,9 @@ public class Colission {
 	public static void guard1(Player player, Ball ball) {
 
 		if (p1col(player.getShape(), ball.getShape())) {
-			Gameplay.superhit2 = false;
+			Gameplay.setSuperhit2(false);
 
-			if (Gameplay.charmove1 && player.getChar() == 0) {
+			if (Gameplay.isCharmove1() && player.getChar() == 0) {
 				// beim Sprung wird die Geschwindigkeit leicht erh�t
 				if (ball.getXSpeed() > 0)
 					ball.setXSpeed(ball.getXSpeed() + 15);
@@ -78,7 +78,7 @@ public class Colission {
 					// n�tig damit er die Geschwindigkeit nicht umdreht falls der Ball sich auf den
 					// Gegner zu bewegt
 					if (ball.getXSpeed() < 0) {
-						if (Gameplay.superhit1) {
+						if (Gameplay.isSuperhit1()) {
 							// falls ein Superhit ausgef�hrt wurde wird die Geschwindigkeit erh�t
 							player.setCombo(player.getCombo() + 1);
 							ball.setXSpeed(ball.getXSpeed() - 100);
@@ -96,9 +96,10 @@ public class Colission {
 
 		// Das Gleiche wie oben, nur dass es auf den 2.Spieler angewandt wird
 		if (p2col(player.getShape(), ball.getShape())) {
-			Gameplay.superhit1 = false;
+			Gameplay.setSuperhit1(false);
+			;
 
-			if (Gameplay.charmove2 && player.getChar() == 0) {
+			if (Gameplay.isCharmove2() && player.getChar() == 0) {
 				if (ball.getXSpeed() < 0)
 					ball.setXSpeed(ball.getXSpeed() - 15);
 				else
@@ -115,7 +116,7 @@ public class Colission {
 					ball.getShape().setY(ball.getShape().getY() + p);
 				} else {
 					if (ball.getXSpeed() > 0) {
-						if (Gameplay.superhit2) {
+						if (Gameplay.isSuperhit2()) {
 							player.setCombo(player.getCombo() + 1);
 							ball.setXSpeed(ball.getXSpeed() + 100);
 						}

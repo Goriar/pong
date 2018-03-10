@@ -27,12 +27,15 @@ public class MainMenu extends BasicGameState {
 	int instY = 250;
 	MState state;
 
+	public static final String INSTRUCTION_STRING = "Instructions";
+	public static final String GAME_START_STRING = "Spiel starten!";
+
 	MainMenu(int stateID) {
 		this.stateID = stateID;
 	}
 
 	enum MState {
-		Start, Instruction
+		START, INSTRUCTIONS
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -46,15 +49,15 @@ public class MainMenu extends BasicGameState {
 		unicodeFont.getEffects().add(new ColorEffect(java.awt.Color.white));
 		unicodeFont.loadGlyphs();
 
-		state = MState.Start;
+		state = MState.START;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		if (state == MState.Start) {
+		if (state == MState.START) {
 			// zeichnet den Hintergrund und die Auswahlm�glichkeiten
 			background.draw(0, 0);
-			unicodeFont.drawString(menuX, menuY, "Spiel starten!", Color.red);
-			unicodeFont.drawString(instX, instY, "Instructions", Color.red);
+			unicodeFont.drawString(menuX, menuY, GAME_START_STRING, Color.red);
+			unicodeFont.drawString(instX, instY, INSTRUCTION_STRING, Color.red);
 		} else
 			// zeichnet die Anleitung
 			instruc.draw(0, 0);
@@ -63,7 +66,7 @@ public class MainMenu extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		Input input = gc.getInput();
 
-		if (state == MState.Start) {
+		if (state == MState.START) {
 			int mouseX = input.getMouseX();
 			int mouseY = input.getMouseY();
 
@@ -71,13 +74,13 @@ public class MainMenu extends BasicGameState {
 			boolean insideInst = false;
 
 			// pr�ft ob die Maus �ber einer der Auswahlm�glichkeiten liegt
-			if (mouseX >= menuX && mouseX <= menuX + unicodeFont.getWidth("Spiel starten!") && mouseY >= menuY
-					&& mouseY <= menuY + unicodeFont.getHeight("Spiel starten")) {
+			if (mouseX >= menuX && mouseX <= menuX + unicodeFont.getWidth(GAME_START_STRING) && mouseY >= menuY
+					&& mouseY <= menuY + unicodeFont.getHeight(GAME_START_STRING)) {
 				insideStart = true;
 			}
 
-			if (mouseX >= instX && mouseX <= instX + unicodeFont.getWidth("Instructions") && mouseY >= instY
-					&& mouseY <= instY + unicodeFont.getHeight("Instructions")) {
+			if (mouseX >= instX && mouseX <= instX + unicodeFont.getWidth(INSTRUCTION_STRING) && mouseY >= instY
+					&& mouseY <= instY + unicodeFont.getHeight(INSTRUCTION_STRING)) {
 				insideInst = true;
 			}
 
@@ -86,12 +89,12 @@ public class MainMenu extends BasicGameState {
 				sbg.enterState(PongPlay.CHARACTERSELECT);
 			}
 			if (insideInst && input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-				state = MState.Instruction;
+				state = MState.INSTRUCTIONS;
 			}
 		} else {
 			// Um zum Hauptmen� zur�ck zu kehren dr�ckt man ESC
 			if (input.isKeyDown(Input.KEY_ESCAPE))
-				state = MState.Start;
+				state = MState.START;
 		}
 	}
 
