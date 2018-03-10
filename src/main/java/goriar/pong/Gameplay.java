@@ -282,260 +282,265 @@ public class Gameplay extends BasicGameState {
 			sbg.enterState(PongPlay.MAINMENU);
 		}
 
-		playGameState(input, milliDelta);
+		if (currentstate == GState.PLAY) {
+			playGameState(input, milliDelta);
+		}
 
-		ultra1State(milliDelta, input);
+		if (currentstate == GState.ULTRA1) {
+			ultra1State(milliDelta, input);
+		}
 
-		ultra2State(milliDelta, input);
+		if (currentstate == GState.ULTRA2) {
+			ultra2State(milliDelta, input);
+		}
 	}
 
 	private void ultra2State(float milliDelta, Input input) {
 		// Verl�uft gleich, wie der 1. Ultramove au�er, dass sich die Positionen der
 		// B�lle entsprechend ver�ndert
-		if (currentstate == GState.ULTRA2) {
-			if (player1.getPoints() == 20) {
-				currentstate = GState.PLAYER_1_WINS;
+
+		if (player1.getPoints() == 20) {
+			currentstate = GState.PLAYER_1_WINS;
+		}
+
+		if (player2.getPoints() == 20) {
+			currentstate = GState.PLAYER_2_WINS;
+		}
+
+		if (input.isKeyPressed(Input.KEY_LEFT) && balls < 5) {
+			balls++;
+		}
+
+		ultraball2[balls].getShape().setX(player2.getShape().getX() - 60);
+		ultraball2[balls].getShape().setY(player2.getShape().getCenterY());
+
+		for (int i = tries; i < balls; i++) {
+			ultraball2[i].getShape().setX(ultraball2[i].getShape().getX() + milliDelta * ultraball2[i].getXSpeed());
+			ultraball2[i].getShape().setY(ultraball2[i].getShape().getY() + milliDelta * ultraball2[i].getYSpeed());
+
+			if (Colission.p1col(player1.getShape(), ultraball2[i].getShape())) {
+				defend++;
+				tries++;
+				ultraball2[i].getShape().setX(PongPlay.WIDTH + 500f);
 			}
-
-			if (player2.getPoints() == 20) {
-				currentstate = GState.PLAYER_2_WINS;
+			if (ultraball2[i].getShape().getX() < 0) {
+				tries++;
+				player2.setPoints(player2.getPoints() + 1);
 			}
-
-			if (input.isKeyPressed(Input.KEY_LEFT) && balls < 5) {
-				balls++;
-			}
-
-			ultraball2[balls].getShape().setX(player2.getShape().getX() - 60);
-			ultraball2[balls].getShape().setY(player2.getShape().getCenterY());
-
-			for (int i = tries; i < balls; i++) {
-				ultraball2[i].getShape().setX(ultraball2[i].getShape().getX() + milliDelta * ultraball2[i].getXSpeed());
-				ultraball2[i].getShape().setY(ultraball2[i].getShape().getY() + milliDelta * ultraball2[i].getYSpeed());
-
-				if (Colission.p1col(player1.getShape(), ultraball2[i].getShape())) {
-					defend++;
-					tries++;
-					ultraball2[i].getShape().setX(PongPlay.WIDTH + 500f);
-				}
-				if (ultraball2[i].getShape().getX() < 0) {
-					tries++;
-					player2.setPoints(player2.getPoints() + 1);
-				}
-			}
-			if (tries == 5) {
-				if (defend == 5) {
-					tries = 4;
-					balls = 4;
-					defend = 0;
-					currentstate = GState.ULTRA1;
-				} else {
-					tries = 0;
-					balls = 0;
-					defend = 0;
-					ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
-					currentstate = GState.BALL_OUT;
-				}
+		}
+		if (tries == 5) {
+			if (defend == 5) {
+				tries = 4;
+				balls = 4;
+				defend = 0;
+				currentstate = GState.ULTRA1;
+			} else {
+				tries = 0;
+				balls = 0;
+				defend = 0;
+				ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
+				currentstate = GState.BALL_OUT;
 			}
 		}
 	}
 
 	private void ultra1State(float milliDelta, Input input) {
-		if (currentstate == GState.ULTRA1) {
-			if (player1.getPoints() == 20) {
-				currentstate = GState.PLAYER_1_WINS;
-			}
+		if (player1.getPoints() == 20) {
+			currentstate = GState.PLAYER_1_WINS;
+		}
 
-			if (player2.getPoints() == 20) {
-				currentstate = GState.PLAYER_2_WINS;
-			}
+		if (player2.getPoints() == 20) {
+			currentstate = GState.PLAYER_2_WINS;
+		}
 
-			if (input.isKeyPressed(Input.KEY_D) && balls < 5) {
-				balls++;
-			}
-			// setzt die Startposition der B�lle fest
-			ultraball1[balls].getShape().setX(player1.getShape().getX() + 70);
-			ultraball1[balls].getShape().setY(player1.getShape().getCenterY());
+		if (input.isKeyPressed(Input.KEY_D) && balls < 5) {
+			balls++;
+		}
+		// setzt die Startposition der B�lle fest
+		ultraball1[balls].getShape().setX(player1.getShape().getX() + 70);
+		ultraball1[balls].getShape().setY(player1.getShape().getCenterY());
 
-			// bewegt alle aktiven b�lle. tries z�hlt wie oft b�lle schon beim gegner
-			// ankamen. balls
-			// gibt die maximale Anzahl an b�llen an.
-			for (int i = tries; i < balls; i++) {
-				ultraball1[i].getShape().setX(ultraball1[i].getShape().getX() + milliDelta * ultraball1[i].getXSpeed());
-				ultraball1[i].getShape().setY(ultraball1[i].getShape().getY() + milliDelta * ultraball1[i].getYSpeed());
+		// bewegt alle aktiven b�lle. tries z�hlt wie oft b�lle schon beim gegner
+		// ankamen. balls
+		// gibt die maximale Anzahl an b�llen an.
+		for (int i = tries; i < balls; i++) {
+			ultraball1[i].getShape().setX(ultraball1[i].getShape().getX() + milliDelta * ultraball1[i].getXSpeed());
+			ultraball1[i].getShape().setY(ultraball1[i].getShape().getY() + milliDelta * ultraball1[i].getYSpeed());
 
-				if (Colission.p2col(player2.getShape(), ultraball1[i].getShape())) {
-					// pr�ft ob der Gegner einen Ball abwehren konnte
-					defend++;
-					tries++;
-					// setzt den ball aus dem Feld. Kurz danach wird er nicht mehr verwendet
-					ultraball1[i].getShape().setX(-500);
-				}
-				if (ultraball1[i].getShape().getX() > PongPlay.WIDTH) {
-					// pr�ft ob gepunktet wurde
-					tries++;
-					player1.setPoints(player1.getPoints() + 1);
-				}
+			if (Colission.p2col(player2.getShape(), ultraball1[i].getShape())) {
+				// pr�ft ob der Gegner einen Ball abwehren konnte
+				defend++;
+				tries++;
+				// setzt den ball aus dem Feld. Kurz danach wird er nicht mehr verwendet
+				ultraball1[i].getShape().setX(-500);
 			}
-			if (tries == 5) {
-				// nach 5 B�llen wird das Spiel normal fortgesetzt...
-				if (defend == 5) {
-					// ... es sei denn der Gegner konnte 5 B�lle abwehren. In diesem Fall kann er
-					// selbst einen Ball
-					// zur�ck spielen
-					tries = 4;
-					balls = 4;
-					defend = 0;
-					currentstate = GState.ULTRA2;
-				} else {
-					// alle Variabeln werden vor dem Eintritt ins normale Spiel wieder resettet
-					tries = 0;
-					balls = 0;
-					defend = 0;
-					ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
-					currentstate = GState.BALL_OUT;
-				}
+			if (ultraball1[i].getShape().getX() > PongPlay.WIDTH) {
+				// pr�ft ob gepunktet wurde
+				tries++;
+				player1.setPoints(player1.getPoints() + 1);
+			}
+		}
+		if (tries == 5) {
+			// nach 5 B�llen wird das Spiel normal fortgesetzt...
+			if (defend == 5) {
+				// ... es sei denn der Gegner konnte 5 B�lle abwehren. In diesem Fall kann er
+				// selbst einen Ball
+				// zur�ck spielen
+				tries = 4;
+				balls = 4;
+				defend = 0;
+				currentstate = GState.ULTRA2;
+			} else {
+				// alle Variabeln werden vor dem Eintritt ins normale Spiel wieder resettet
+				tries = 0;
+				balls = 0;
+				defend = 0;
+				ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
+				currentstate = GState.BALL_OUT;
 			}
 		}
 	}
 
 	private void playGameState(Input input, float milliDelta) {
-		if (currentstate == GState.PLAY) {
-			if (input.isKeyPressed(Input.KEY_D) && ball.getShape().getMinX() < player1.getShape().getMaxX() + 50
-					&& ball.getXSpeed() < 0) {
-				// fragt ab ob der ball sich auf den Schl�ger zu bewegt und ob der Ball im
-				// Schlagraum ist
-				setSuperhit1(true);
-			}
+		player1Actions(input);
+		player2Actions(input);
+		gameplayLogic(milliDelta);
 
-			if (input.isKeyPressed(Input.KEY_LEFT) && ball.getShape().getMaxX() > player2.getShape().getMinX() - 50
-					&& ball.getXSpeed() > 0) {
-				setSuperhit2(true);
-			}
+	}
 
-			if (input.isKeyDown(Input.KEY_A)) {
+	private void player2Actions(Input input) {
+		if (input.isKeyPressed(Input.KEY_LEFT) && ball.getShape().getMaxX() > player2.getShape().getMinX() - 50
+				&& ball.getXSpeed() > 0) {
+			setSuperhit2(true);
+		}
 
-				// fragt ab ob der Ultramove bereit ist und ob der ball sich kurz vorm Spieler
-				// befindet
-				if (ultra1 && ball.getShape().getCenterX() < player1.getShape().getCenterX() + 80
-						&& ball.getShape().getMaxY() >= player1.getShape().getMinY()
-						&& ball.getShape().getMinY() <= player1.getShape().getMaxY()) {
-					balls = 0;
-					player1.setCombo(0);
-					setSuperhit2(false);
-					currentstate = GState.ULTRA1;
-				}
-				// falls kein Ultramove bereit ist wird abgefragt ob der Charmove bereit ist
-				if (!ultra1 && player1.getCombo() >= 3 && !isCharmove1()) {
-					setCharmove1(true);
-					player1.setCombo(player1.getCombo() - 3);
-				}
+		if (input.isKeyDown(Input.KEY_RIGHT)) {
+			if (ultra2 && ball.getShape().getCenterX() > player2.getShape().getCenterX() - 80
+					&& ball.getShape().getMaxY() >= player2.getShape().getMinY()
+					&& ball.getShape().getMinY() <= player2.getShape().getMaxY()) {
+				balls = 0;
+				player2.setCombo(0);
+				setSuperhit1(false);
+				currentstate = GState.ULTRA2;
 			}
+			if (!ultra2 && player2.getCombo() >= 3 && !isCharmove2()) {
+				setCharmove2(true);
+				player2.setCombo(player2.getCombo() - 3);
+			}
+		}
+	}
 
-			if (input.isKeyDown(Input.KEY_RIGHT)) {
-				if (ultra2 && ball.getShape().getCenterX() > player2.getShape().getCenterX() - 80
-						&& ball.getShape().getMaxY() >= player2.getShape().getMinY()
-						&& ball.getShape().getMinY() <= player2.getShape().getMaxY()) {
-					balls = 0;
-					player2.setCombo(0);
-					setSuperhit1(false);
-					currentstate = GState.ULTRA2;
-				}
-				if (!ultra2 && player2.getCombo() >= 3 && !isCharmove2()) {
-					setCharmove2(true);
-					player2.setCombo(player2.getCombo() - 3);
-				}
+	private void player1Actions(Input input) {
+		if (input.isKeyPressed(Input.KEY_D) && ball.getShape().getMinX() < player1.getShape().getMaxX() + 50
+				&& ball.getXSpeed() < 0) {
+			// fragt ab ob der ball sich auf den Schl�ger zu bewegt und ob der Ball im
+			// Schlagraum ist
+			setSuperhit1(true);
+		}
+
+		if (input.isKeyDown(Input.KEY_A)) {
+
+			// fragt ab ob der Ultramove bereit ist und ob der ball sich kurz vorm Spieler
+			// befindet
+			if (ultra1 && ball.getShape().getCenterX() < player1.getShape().getCenterX() + 80
+					&& ball.getShape().getMaxY() >= player1.getShape().getMinY()
+					&& ball.getShape().getMinY() <= player1.getShape().getMaxY()) {
+				balls = 0;
+				player1.setCombo(0);
+				setSuperhit2(false);
+				currentstate = GState.ULTRA1;
 			}
-			gameplayLogic(milliDelta);
+			// falls kein Ultramove bereit ist wird abgefragt ob der Charmove bereit ist
+			if (!ultra1 && player1.getCombo() >= 3 && !isCharmove1()) {
+				setCharmove1(true);
+				player1.setCombo(player1.getCombo() - 3);
+			}
 		}
 	}
 
 	private void gameplayLogic(float milliDelta) {
-		if (currentstate == GState.PLAY) { // playing
+		// Bewirkt die Ballbewegung, indem die festgelegte Geschwindigkeit, also der
+		// Sprung den der Ball
+		// pro Frame macht, zur Position hinzugef�gt wird. Die Geschwindigkeit wird mit
+		// delta mal genommen
+		// damit es frameraten unabh�ngig ist
 
-			// Bewirkt die Ballbewegung, indem die festgelegte Geschwindigkeit, also der
-			// Sprung den der Ball
-			// pro Frame macht, zur Position hinzugef�gt wird. Die Geschwindigkeit wird mit
-			// delta mal genommen
-			// damit es frameraten unabh�ngig ist
+		ball.getShape().setX(ball.getShape().getX() + milliDelta * ball.getXSpeed());
+		ball.getShape().setY(ball.getShape().getY() + milliDelta * ball.getYSpeed());
 
-			ball.getShape().setX(ball.getShape().getX() + milliDelta * ball.getXSpeed());
-			ball.getShape().setY(ball.getShape().getY() + milliDelta * ball.getYSpeed());
+		// fragt ab ob der ball mit der Decke kollidiert und dreht die Geschwindigkeit
+		// von Y um
+		Colission.bottom(ball);
 
-			// fragt ab ob der ball mit der Decke kollidiert und dreht die Geschwindigkeit
-			// von Y um
-			Colission.bottom(ball);
+		// fragt ab ob der ball mit dem Boden kollidiert und dreht die Geschwindigkeit
+		// von Y um
+		Colission.top(ball);
 
-			// fragt ab ob der ball mit dem Boden kollidiert und dreht die Geschwindigkeit
-			// von Y um
-			Colission.top(ball);
+		// fragt ab ob der Ball mit den Spielern kollidiert und dreht ja nachdem wo er
+		// auftrifft die Geschwindigkeit
+		// von X bzw. Y um
+		Colission.guard1(player1, ball);
+		Colission.guard2(player2, ball);
 
-			// fragt ab ob der Ball mit den Spielern kollidiert und dreht ja nachdem wo er
-			// auftrifft die Geschwindigkeit
-			// von X bzw. Y um
-			Colission.guard1(player1, ball);
-			Colission.guard2(player2, ball);
+		ultra1 = false;
+		ultra2 = false;
 
-			// fragt ab ob der Ultramove bereit ist
-			if (player1.getCombo() >= 10)
-				ultra1 = true;
+		// fragt ab ob der Ultramove bereit ist
+		if (player1.getCombo() >= 10)
+			ultra1 = true;
+
+		if (player2.getCombo() >= 10)
+			ultra2 = true;
+
+		// Spieler punktet
+		if (ball.getShape().getX() > PongPlay.WIDTH || ball.getShape().getX() < 0) {
+			// fragt ab welche Spieler gepunktet hat
+			if (ball.getShape().getX() > PongPlay.WIDTH)
+				player1.setPoints(player1.getPoints() + 1);
 			else
-				ultra1 = false;
+				player2.setPoints(player2.getPoints() + 1);
 
-			if (player2.getCombo() >= 10)
-				ultra2 = true;
-			else
-				ultra2 = false;
-
-			// Spieler punktet
-			if (ball.getShape().getX() > PongPlay.WIDTH || ball.getShape().getX() < 0) {
-				// fragt ab welche Spieler gepunktet hat
-				if (ball.getShape().getX() > PongPlay.WIDTH)
-					player1.setPoints(player1.getPoints() + 1);
-				else
-					player2.setPoints(player2.getPoints() + 1);
-
-				// resetet die Spieler und den Ball
-				ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
-				setSuperhit1(false);
-				setSuperhit2(false);
-				setCharmove1(false);
-				setCharmove2(false);
-				player1.getShape().setX(20);
-				player2.getShape().setX(730);
-				player1.getShape().setY(PongPlay.HEIGHT / 2f);
-				player2.getShape().setY(PongPlay.HEIGHT / 2f);
-				player1.resetSize();
-				player2.resetSize();
-				Charmoves.t1.reset();
-				Charmoves.t2.reset();
-				currentstate = GState.BALL_OUT;
-			}
-
-			// fragt ab ob einer der Spieler gewonnen hat
-			if (player1.getPoints() == 20) {
-				currentstate = GState.PLAYER_1_WINS;
-			}
-
-			if (player2.getPoints() == 20) {
-				currentstate = GState.PLAYER_2_WINS;
-			}
-
-			// f�hrt den Charmove aus
-			if (isCharmove1()) {
-				player1.doMove(milliDelta, player2);
-				if (Charmoves.isFinished1())
-					setCharmove1(false);
-				Charmoves.setFinished1(false);
-			}
-
-			if (isCharmove2()) {
-				player2.doMove(milliDelta, player1);
-				if (Charmoves.isFinished2())
-					setCharmove2(false);
-				Charmoves.setFinished2(false);
-			}
-
+			// resetet die Spieler und den Ball
+			ball = new Ball(PongPlay.WIDTH / 2, PongPlay.HEIGHT / 2 + 50);
+			setSuperhit1(false);
+			setSuperhit2(false);
+			setCharmove1(false);
+			setCharmove2(false);
+			player1.getShape().setX(20);
+			player2.getShape().setX(730);
+			player1.getShape().setY(PongPlay.HEIGHT / 2f);
+			player2.getShape().setY(PongPlay.HEIGHT / 2f);
+			player1.resetSize();
+			player2.resetSize();
+			Charmoves.t1.reset();
+			Charmoves.t2.reset();
+			currentstate = GState.BALL_OUT;
 		}
+
+		// fragt ab ob einer der Spieler gewonnen hat
+		if (player1.getPoints() == 20) {
+			currentstate = GState.PLAYER_1_WINS;
+		}
+
+		if (player2.getPoints() == 20) {
+			currentstate = GState.PLAYER_2_WINS;
+		}
+
+		// f�hrt den Charmove aus
+		if (isCharmove1()) {
+			player1.doMove(milliDelta, player2);
+			if (Charmoves.isFinished1())
+				setCharmove1(false);
+			Charmoves.setFinished1(false);
+		}
+
+		if (isCharmove2()) {
+			player2.doMove(milliDelta, player1);
+			if (Charmoves.isFinished2())
+				setCharmove2(false);
+			Charmoves.setFinished2(false);
+		}
+
 	}
 
 	private void initGameState() {
