@@ -2,6 +2,8 @@ package goriar.pong;
 
 import org.newdawn.slick.geom.Rectangle;
 
+import goriar.main.PongPlay;
+
 public class Charmoves {
 
 	static boolean reached1 = false;

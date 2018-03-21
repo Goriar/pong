@@ -10,6 +10,11 @@
   <name>pong</name>
   <url>http://maven.apache.org</url>
 
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.library.path>./lib</java.library.path>
+    <mainClass>goriar.main.PongPlay</mainClass>
+  </properties>
 <build>
     <plugins>
       <plugin>
@@ -20,18 +25,37 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>goriar.pong.PongPlay</mainClass>
+              <mainClass>${mainClass}</mainClass>
               <classpathPrefix>lib/</classpathPrefix>
             </manifest>
           </archive>
         </configuration>
       </plugin>
+      
+      <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>2.3</version>
+    <executions>
+      <!-- Run shade goal on package phase -->
+      <execution>
+        <phase>package</phase>
+        <goals>
+          <goal>shade</goal>
+        </goals>
+        <configuration>
+          <transformers>
+            <!-- add Main-Class to manifest file -->
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>${mainClass}</mainClass>
+            </transformer>
+          </transformers>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
     </plugins>
   </build>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.library.path>./lib</java.library.path>
-  </properties>
 <dependencies><!-- https://mvnrepository.com/artifact/org.slick2d/slick2d-core -->
  <dependency>
       <groupId>de.goriar.slick</groupId>

@@ -13,6 +13,8 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import goriar.main.PongPlay;
+
 public class Gameplay extends BasicGameState {
 
 	public static final int BALL_RADIUS = 12;
@@ -65,7 +67,7 @@ public class Gameplay extends BasicGameState {
 
 	int stateID = 0;
 
-	Gameplay(int stateID) {
+	public Gameplay(int stateID) {
 		this.stateID = stateID;
 	}
 

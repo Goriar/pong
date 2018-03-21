@@ -2,6 +2,8 @@ package goriar.pong;
 
 import org.newdawn.slick.geom.Shape;
 
+import goriar.main.PongPlay;
+
 public class Colission {
 
 	private Colission() {

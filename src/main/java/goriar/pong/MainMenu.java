@@ -14,6 +14,8 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import goriar.main.PongPlay;
+
 public class MainMenu extends BasicGameState {
 
 	int stateID = -1;
@@ -30,7 +32,7 @@ public class MainMenu extends BasicGameState {
 	public static final String INSTRUCTION_STRING = "Instructions";
 	public static final String GAME_START_STRING = "Spiel starten!";
 
-	MainMenu(int stateID) {
+	public MainMenu(int stateID) {
 		this.stateID = stateID;
 	}
 

@@ -1,9 +1,13 @@
-package goriar.pong;
+package goriar.main;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import goriar.pong.CharacterSelect;
+import goriar.pong.Gameplay;
+import goriar.pong.MainMenu;
 
 
 public class PongPlay extends StateBasedGame {

@@ -9,13 +9,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import goriar.main.PongPlay;
+
 public class CharacterSelect extends BasicGameState {
 
 	private static final String CHARACTER_SELECT_PIC = "Data/charselect.png";
 	private static final String MAIN_MENU_BG_PIC = "Data/main_menu_bg.jpg";
 	int stateID = 1;
 
-	CharacterSelect(int stateID) {
+	public CharacterSelect(int stateID) {
 		this.stateID = stateID;
 	}
 
